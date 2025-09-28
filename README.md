@@ -5,101 +5,70 @@ This app is inspired by her: **turn messy screenshots into clean, searchable not
 
 Built for **GirlHack 2025**.  
 
----
+Turn screenshots into structured notes automatically (OCR → Summarize → Notion).
 
-## ✨ Features  
-- 📸 **Screenshot to Notes** – Upload any screenshot (slides, whiteboards, notes).  
-- 🔎 **OCR Extraction** – AI reads text from images.  
-- 🧠 **Smart Summarization** – Summarizes ideas into concise bullet points.  
-- 🗂 **Notion Integration** – Saves results directly into a Notion database.  
-- 🎭 **Greek Goddess Theme** – Adds a touch of mythology to your workflow.  
+📌 Overview
 
----
+Mnemosyne is a productivity app that transforms unstructured screenshots into organized, searchable notes.
+It works in three steps:
 
-## 🛠 Tech Stack  
-- **Frontend**: Streamlit (Python)  
-- **OCR**: Tesseract / GPT-4o Vision  
-- **AI Summarization**: OpenAI API  
-- **Database**: Notion API  
-- **Deployment**: Local (hackathon demo)  
+1.OCR (Azure Document Intelligence or Tesseract fallback)
+Extracts raw text from images.
 
----
+2.Summarization (Google Gemini)
+Condenses the text into a concise summary with a title and tags.
 
-## 🚀 Getting Started  
+3.Notion Integration
+Saves the structured note directly into a Notion database for long-term organization.
 
-### 1. Clone the repo  
-```bash
-git clone https://github.com/Livia-1212/mnemosyne.git
-cd mnemosyne
-2. Create & activate a virtual environment
-bash
-Copy code
-python3 -m venv venv
-source venv/bin/activate   # Mac/Linux
-venv\Scripts\activate      # Windows
-3. Install dependencies
-bash
-Copy code
-pip install -r requirements.txt
-4. Configure environment variables
-Create a .env file in the project root:
+⚙️ Tech Stack
 
-ini
-Copy code
-OPENAI_API_KEY=your_openai_key_here
-NOTION_API_KEY=your_notion_key_here
-NOTION_DATABASE_ID=your_database_id_here
-5. Run the app
-bash
-Copy code
-streamlit run app/main.py
+Python 3.12
+FastAPI + Uvicorn
+Azure Document Intelligence API (OCR)
+Google Gemini (summarization)
+Notion API
+
 📂 Project Structure
-bash
-Copy code
 mnemosyne/
-│── app/
-│   ├── main.py           # Streamlit app entry point
-│   ├── ocr.py            # OCR logic
-│   ├── summarizer.py     # Summarization logic
-│   ├── notion_client.py  # Notion API client
-│   └── utils.py          # Helper functions
 │
-├── data/
-│   └── sample_screenshots/
-│
-├── tests/
-│   └── test_app.py
+├── app/
+│   ├── ocr.py              # Extract text from images
+│   ├── summarizer.py       # Summarize text with Gemini
+│   ├── notion_wrapper.py   # Save notes into Notion
+│   ├── utils.py            # Environment variable loader
+│   ├── mcp_server.py       # FastAPI server (routes OCR → Summarize → Notion)
+│   ├── test_pipeline.py    # End-to-end test script
+│   └── data/sample_screenshots/sample.png
 │
 ├── requirements.txt
-├── README.md
-├── LICENSE
-└── .gitignore
+└── README.md
+
+🚀 Setup & Run
+1. Clone repo & install dependencies
+git clone https://github.com/yourusername/mnemosyne.git
+cd mnemosyne
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+2. Set environment variables
+
+Create a .env file in the root with:
+
+# Gemini
+GEMINI_API_KEY=your_gemini_api_key_here
+
+# Notion
+NOTION_API_KEY=secret_from_notion
+NOTION_DB_ID=your_database_id   # or data_source_id if using Notion API >= 2025-09-03
+
+# Azure OCR (optional, fallback is Tesseract)
+AZURE_VISION_ENDPOINT=https://your-resource.cognitiveservices.azure.com/
+AZURE_VISION_KEY=your_azure_key
+
+3. Run server
+python3 -m uvicorn app.mcp_server:app --reload
 
 
-🎯 Roadmap
- Enhance OCR with GPT Vision for messy handwriting
-
- Add auto-tagging (topics, priority, deadlines)
-
- Browser extension for 1-click save to Notion
-
- Slack/Discord integration for team workflows
-
-🏛 Inspiration
-This project is named after Mnemosyne, the Greek goddess of memory.
-Just as she ensured nothing was forgotten, this app makes sure your ideas never get lost in messy screenshots.
-
-👩‍💻 Contributors
-Livia-1212 (Lead Dev / Hackathon Participant)
-
-📜 License
-This project is licensed under the MIT License.
-
----
-
-👉 Next step: save this content into your local `README.md`, then run:  
-
-```bash
-git add README.md
-git commit -m "Add complete README"
-git push ```
+Server runs at: http://127.0.0.1:8000

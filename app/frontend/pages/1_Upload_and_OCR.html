@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mnemosyne - Upload Screenshot</title>
+    <link rel="stylesheet" href="../css/styling.css">
+</head>
+<body>
+    <header>
+        <h1>Mnemosyne</h1>
+        <p>Turn screenshots into searchable notes.</p>
+    </header>
+
+    <main>
+        <section id="upload-section">
+            <h2>Upload a Screenshot</h2>
+            <form id="uploadForm" enctype="multipart/form-data">
+                <input type="file" id="screenshot" accept="image/*">
+                <p>or</p>
+                <textarea id="pasteText" placeholder="Paste text here..."></textarea>
+                <button type="submit">Process</button>
+            </form>
+            <div id="status"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Mnemosyne</p>
+    </footer>
+
+    <script src="../js/upload.js"></script>
+</body>
+</html>

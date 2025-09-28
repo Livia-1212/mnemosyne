@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mnemosyne - Summary</title>
+    <link rel="stylesheet" href="../css/styling.css">
+</head>
+<body>
+    <header>
+        <h1>Mnemosyne</h1>
+        <p>Review and edit your note before saving to Notion.</p>
+    </header>
+
+    <main>
+        <section id="summary-section">
+            <div class="container">
+                <!-- Raw Text Column -->
+                <div class="column">
+                    <h2>Raw Text</h2>
+                    <textarea id="rawText" readonly></textarea>
+                </div>
+
+                <!-- AI Summary Column -->
+                <div class="column">
+                    <h2>Summary</h2>
+                    <textarea id="aiSummary"></textarea>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="actions">
+                <button id="saveNote">Save to Notion</button>
+                <button id="discardNote">Discard</button>
+            </div>
+
+            <div id="status"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Mnemosyne</p>
+    </footer>
+
+    <script src="../js/summary.js"></script>
+</body>
+</html>

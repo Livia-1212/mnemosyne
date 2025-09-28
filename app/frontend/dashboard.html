@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mnemosyne | Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="dash-header">
+    <h1>Dashboard</h1>
+    <a href="settings.html" class="set<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mnemosyne - Dashboard</title>
+    <link rel="stylesheet" href="../css/styling.css">
+</head>
+<body>
+    <header>
+        <h1>Mnemosyne Dashboard</h1>
+        <div class="header-actions">
+            <a href="settings.html">Settings ⚙️</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="dashboard-section" class="container">
+            <!-- Left Panel: List of Notes -->
+            <div class="column" id="notesList">
+                <h2>Your Notes</h2>
+                <input type="text" id="searchNotes" placeholder="Search notes...">
+                <ul id="notesUl">
+                    <!-- Notes will be populated dynamically -->
+                </ul>
+            </div>
+
+            <!-- Right Panel: Note Preview -->
+            <div class="column" id="notePreview">
+                <h2>Preview</h2>
+                <div id="previewContent">
+                    <p>Select a note to see the preview here.</p>
+                </div>
+                <div class="actions">
+                    <button id="editNote">Edit</button>
+                    <button id="resendNote">Resend to Notion</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Mnemosyne</p>
+    </footer>
+
+    <script src="../js/dashboard.js"></script>
+</body>
+</html>
+tings-link">⚙</a>
+  </header>
+
+  <main class="dashboard">
+    <aside class="notes-list">
+      <h2>Saved Notes</h2>
+      <ul>
+        <li onclick="showPreview('Note 1')">Note 1</li>
+        <li onclick="showPreview('Note 2')">Note 2</li>
+        <li onclick="showPreview('Note 3')">Note 3</li>
+      </ul>
+    </aside>
+
+    <section class="preview-pane">
+      <h2>Note Preview</h2>
+      <p>Select a note to see details here.</p>
+    </section>
+  </main>
+</body>
+</html>

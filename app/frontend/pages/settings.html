@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mnemosyne - Settings</title>
+    <link rel="stylesheet" href="../css/styling.css">
+</head>
+<body>
+    <header>
+        <h1>Settings</h1>
+        <div class="header-actions">
+            <a href="dashboard.html">← Back to Dashboard</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="settings-section" class="container">
+
+            <!-- User Profile Info -->
+            <div class="settings-card">
+                <h2>Profile Information</h2>
+                <p><strong>Username:</strong> <span id="username">John Doe</span></p>
+                <p><strong>Email:</strong> <span id="email">johndoe@example.com</span></p>
+            </div>
+
+            <!-- Integrations -->
+            <div class="settings-card">
+                <h2>Integrations</h2>
+                <div>
+                    <button id="connectNotion">Connect Notion</button>
+                    <button id="disconnectNotion">Disconnect Notion</button>
+                </div>
+                <p id="integrationStatus"></p>
+            </div>
+
+            <!-- API Keys -->
+            <div class="settings-card">
+                <h2>API Keys</h2>
+                <input type="text" id="apiKey" placeholder="Enter API Key">
+                <button id="saveApiKey">Save</button>
+                <p id="apiStatus"></p>
+            </div>
+
+            <!-- Theme Toggle -->
+            <div class="settings-card">
+                <h2>Theme</h2>
+                <label>
+                    <input type="checkbox" id="themeToggle">
+                    Dark Mode
+                </label>
+            </div>
+
+            <!-- Logout -->
+            <div class="settings-card">
+                <button id="logoutBtn">Logout</button>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Mnemosyne</p>
+    </footer>
+
+    <script src="../js/settings.js"></script>
+</body>
+</html>
