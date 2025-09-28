@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mnemosyne</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background-color: #3e005d;
+      color: #fdd28a;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 75vh;
+    }
+
+    h1 {
+      font-family: "Brush Script MT", cursive;
+      font-size: 10em;
+      margin-bottom: 40px;
+    }
+
+    .upload-box {
+      border: 2px solid #fdd28a;
+      border-radius: 10px;
+      padding: 40px;
+      cursor: pointer;
+      display: inline-block;
+      transition: 0.3s ease;
+    }
+
+    .upload-box:hover {
+      background-color: rgba(253, 210, 138, 0.1);
+    }
+
+    .upload-box p {
+      font-size: 1.3em;
+      margin-bottom: 20px;
+      font-family: cursive;
+    }
+
+    .upload-box svg {
+      width: 80px;
+      height: 80px;
+      fill: none;
+      stroke: #fdd28a;
+      stroke-width: 4;
+    }
+
+    /* Optional: background illustrations */
+    .figure-left {
+      position: absolute;
+      left: 20px;
+      bottom: 0;
+      height: 90%;
+      opacity: 0.15;
+    }
+
+    .vase-right {
+      position: absolute;
+      right: 20px;
+      bottom: 0;
+      height: 70%;
+      opacity: 0.15;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mnemosyne</h1>
+
+  <div class="upload-box" onclick="document.getElementById('fileInput').click()">
+    <p>Click to upload a screenshot..</p>
+    <svg viewBox="0 0 24 24">
+      <path d="M12 16v-8m0 0l-4 4m4-4l4 4M20 16v5H4v-5"/>
+    </svg>
+  </div>
+  <input type="file" id="fileInput" style="display:none">
+
+  <!-- Decorative images (replace with your assets) -->
+  <img src="figure.png" alt="Greek figure" class="figure-left">
+  <img src="vase.png" alt="Greek vase" class="vase-right">
+
+</body>
+</html>
+
+<script>
+  document.getElementById("fileInput").addEventListener("change", async function (event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    // Prepare FormData to send as multipart/form-data
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      // Call backend API
+      const response = await fetch("http://localhost:8000/process", {
+        method: "POST",
+        body: formData
+      });
+
+      if (!response.ok) {
+        throw new Error("Server error: " + response.statusText);
+      }
+
+      const result = await response.json();
+
+      // Show the result on the page (basic example)
+      alert("OCR + Gemini Result:\n\n" + result.summary);
+
+      // You could also render in a div instead of alert:
+      // document.body.innerHTML += "<pre>" + JSON.stringify(result, null, 2) + "</pre>";
+
+    } catch (err) {
+      console.error("Upload failed:", err);
+      alert("Upload failed: " + err.message);
+    }
+  });
+</script>
