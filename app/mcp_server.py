@@ -3,8 +3,17 @@ from app.ocr import extract_text_from_image
 from app.summarizer import summarize_text_gemini
 from app.notion_wrapper import NotionClientWrapper
 from app.utils import load_env_vars
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],   # allow all during dev
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.post("/ocr")
 async def ocr_endpoint(file: UploadFile = File(...)):
@@ -44,12 +53,14 @@ async def process_endpoint(file: UploadFile = File(...)):
     summary_data = summarize_text_gemini(ocr_text)
     # summary_data should be JSON with {title, summary, tags}
 
-    # Step 3: Save to Notion
+    # Step 3: Save to Notion (simplify tags to text)
+    tags_str = ", ".join(summary_data.get("tags", []))
+
     notion = NotionClientWrapper(cfg["NOTION_API_KEY"], cfg["NOTION_DB_ID"])
     page = notion.add_page(
         summary_data.get("title", "OCR Note"),
         summary_data.get("summary", ""),
-        summary_data.get("tags", []),
+        tags_str,
     )
 
     return {
@@ -57,3 +68,14 @@ async def process_endpoint(file: UploadFile = File(...)):
         "summary": summary_data,
         "notion_page": page,
     }
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(
+        "app.mcp_server:app",
+        host="0.0.0.0",
+        port=8000,
+        reload=True
+    )
+
